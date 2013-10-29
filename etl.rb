@@ -1,13 +1,13 @@
 class ETL
 
   def self.transform(old)
-    new = {}
-    old.each_pair do |key, *values|
-      values.flatten.each do |value|
-        new[value.downcase] = key
+    old.inject({}) do |memo, element|
+      key = element.shift
+      element.flatten.each do |value|
+        memo[value.downcase] = key
       end
+      memo
     end
-    new
   end
 
 end
